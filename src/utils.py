@@ -53,11 +53,11 @@ def train_model(
         
         X_k, y_k = zip(*bootstrap_samples)
 
-        z_k = [torch.randn(latent_size) for _ in range(k)] 
+        z_k = torch.randn(k, latent_size)
 
         epoch_loss = []
         for _ in range(gradient_steps):
-            theta_k = [amortized_bootstrap(z) for z in z_k] 
+            theta_k = amortized_bootstrap(z_k) 
 
             models = [model_class(theta_cur) for theta_cur in theta_k]
             y_pred_k = [model(X_cur) for model, X_cur in zip(models, X_k)]
