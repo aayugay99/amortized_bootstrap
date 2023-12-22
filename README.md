@@ -12,7 +12,7 @@ for t in range(1, T+1):
     θ_{\phi;k} = f_{\phi}(\xi_k) for k in range(1, K+1)
     φ_t = φ_{t-1} + η * \frac{\partial J(X_0, \phi_{t-1})}{\partial \phi_{t-1}}
 Return amortized bootstrap parameters $\phi_T$
-
+```
 Optimization Objective. The parameters $\phi$ can be estimated by optimizing the likelihood function under samples from the implicit model:
 
 $$ J(X_0, \phi) = \mathbb{E}{F(\theta)}\mathbb{E}{G(x)} [\log p(X|\theta)] \approx \frac{1}{K} \sum_{k=1}^{K} \log p(X_k|\theta_{\phi;k}) \quad (3) $$
