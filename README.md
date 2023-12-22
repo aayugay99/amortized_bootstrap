@@ -24,5 +24,3 @@ Gradient-Based Optimization. Learning the amortized bootstrap distribution amoun
 $$ \frac{\partial J(X_0, \phi)}{\partial \phi} = \frac{1}{K} \sum_{k=1}^{K} \frac{\partial \log p(X_k|\theta_{\phi;k})}{\partial \theta_{\phi;k}} \frac{\partial \theta_{\phi;k}}{\partial \phi} \quad (4) $$
 
 The optimization procedure is summarized in Algorithm 1. The user must specify how often to sample the data and parameters from $G(x)$ and $F(\theta)$ respectively. We found that sampling new parameters for every minibatch and sampling new datasets after every few epochs (3 to 5) works well.
-
-Amortized Bagging. Using the amortized bootstrap for amortized bagging is straightforward. At test time, we draw some number of samples $M$ from $f_{\phi}$—$f_{\theta^1}, \ldots, f_{\theta^M} = f_{\phi}(\xi^m)$—and then we ensemble the $M$ models $p(X|\theta^m)$ via the usual mechanisms (voting, averaging, etc.). Here we explicitly see the benefits of using the amortized bootstrap: the size of the ensemble $M$ can be larger than the number of replications used during training. This is not possible with traditional bagging.
