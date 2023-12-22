@@ -15,12 +15,12 @@ Return amortized bootstrap parameters $\phi_T$
 ```
 Optimization Objective. The parameters $\phi$ can be estimated by optimizing the likelihood function under samples from the implicit model:
 
-$$ J(X_0, \phi) = \mathbb{E}{F(\theta)}\mathbb{E}{G(x)} [\log p(X|\theta)] \approx \frac{1}{K} \sum_{k=1}^{K} \log p(X_k|\theta_{\phi;k}) \quad (3) $$
+$$ J(X_0, \phi) = \mathbb{E}{F(\theta)}\mathbb{E}{G(x)} [\log p(X|\theta)] \approx \frac{1}{K} \sum_{k=1}^{K} \log p(X_k|\theta_{\phi;k}) $$
 
 where $X_k ~ G(x)$ and $\theta_{\phi;k} = f_{\phi}(\xi^k)$. Notice that this objective is the same as that of the traditional bootstrap: if the $K$ models are independent, maximizing the sum is equivalent to maximizing each term individually.
 
 Gradient-Based Optimization. Learning the amortized bootstrap distribution amounts to maximizing Equation 3 with respect to $\phi$. We assume the model parameters $\theta$ are continuous and thus can take gradients directly through the parameter samples and then into $f_{\phi}$ as follows:
 
-$$ \frac{\partial J(X_0, \phi)}{\partial \phi} = \frac{1}{K} \sum_{k=1}^{K} \frac{\partial \log p(X_k|\theta_{\phi;k})}{\partial \theta_{\phi;k}} \frac{\partial \theta_{\phi;k}}{\partial \phi} \quad (4) $$
+$$ \frac{\partial J(X_0, \phi)}{\partial \phi} = \frac{1}{K} \sum_{k=1}^{K} \frac{\partial \log p(X_k|\theta_{\phi;k})}{\partial \theta_{\phi;k}} \frac{\partial \theta_{\phi;k}}{\partial \phi} $$
 
-The optimization procedure is summarized in Algorithm 1. The user must specify how often to sample the data and parameters from $G(x)$ and $F(\theta)$ respectively. We found that sampling new parameters for every minibatch and sampling new datasets after every few epochs (3 to 5) works well.
+The optimization procedure is summarized in Algorithm 1. The user must specify how often to sample the data and parameters from $G(x)$ and $F(\theta)$ respectively. We found that sampling new parameters for every minibatch and sampling new datasets after every few epochs works well.
