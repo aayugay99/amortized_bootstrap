@@ -5,7 +5,7 @@
 
 **Input:** Max iterations $T$, learning rate $\eta$, number of replications $K$, dataset $X_0$, data model $p(x|\theta)$, sampler $f_{\phi}$, fixed distribution $p_0(\xi)$.
 
-```python
+```
 for t in range(1, T+1):
     X_1, ..., X_K ~ G(x)  # sample every few epochs
     ξ_1, ..., ξ_K ~ p_0(ξ)  # sample for each minibatch
