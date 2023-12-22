@@ -1,7 +1,7 @@
 import torch
 
 
-class AmortizedBootstrapLinreg():
+class AmortizedBootstrap():
     def __init__(self, generator):
         self.generator = generator
         self.latent_size = generator[0].in_features

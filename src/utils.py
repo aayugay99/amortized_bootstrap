@@ -3,28 +3,25 @@ from tqdm import tqdm
 import torch
 import numpy as np
 
-from sklearn.metrics import mean_squared_error
-
 from .bootstrap import get_bootstrap_sample
 
 
-def eval_bagging(sampler, model_class, X, y, k_list, n_rerun=100):
-    mse_list = []
+def eval_bagging(sampler, model_class, X, y, k_list, metric, agg_func, n_rerun=100):
+    metric_list = []
 
     for k in k_list:
-        mse_cur = []
+        metric_cur = []
         for _ in range(n_rerun):
             theta_sampled = sampler.sample(k)
 
             models = [model_class(theta_sampled[i]) for i in range(k)]
+            y_pred = agg_func([model(X) for model in models])
 
-            y_pred = np.array([model(X) for model in models]).mean(axis=0)
+            metric_cur.append(metric(y, y_pred))
         
-            mse_cur.append(mean_squared_error(y, y_pred))
-        
-        mse_list.append(mse_cur)
+        metric_list.append(metric_cur)
 
-    return np.array(mse_list)
+    return np.array(metric_list)
 
 
 def reduce(inputs):
